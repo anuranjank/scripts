@@ -1,0 +1,29 @@
+Enter user-name: / as sysdba
+Connected.
+SQL> show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 ORCLPDB                        READ WRITE NO
+         4 DEV_PDB                        MOUNTED
+SQL>
+SQL>
+SQL> ALTER PLUGGABLE DATABASE DEV_PDB close;
+ALTER PLUGGABLE DATABASE DEV_PDB close
+*
+ERROR at line 1:
+ORA-65020: pluggable database DEV_PDB already closed
+
+
+SQL> DROP PLUGGABLE DATABASE DEV_PDB INCLUDING DATAFILES;
+
+Pluggable database dropped.
+
+SQL> show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 ORCLPDB                        READ WRITE NO
+SQL>

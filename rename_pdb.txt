@@ -1,0 +1,51 @@
+
+login to pluggable database;
+
+SQL> select name from v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
++DATA/ORCL/C4CFF5471C5C7324E0530118A8C052A8/DATAFILE/system.272.1075320643
++DATA/ORCL/C4CFF5471C5C7324E0530118A8C052A8/DATAFILE/sysaux.273.1075320643
++DATA/ORCL/C4CFF5471C5C7324E0530118A8C052A8/DATAFILE/undotbs1.271.1075320643
++DATA/ORCL/C4CFF5471C5C7324E0530118A8C052A8/DATAFILE/users.275.1075320679
+
+SQL> conn / as sysdba
+Connected.
+SQL> alter pluggable database pdb1 close;
+
+Pluggable database altered.
+
+SQL> alter pluggable database pdb1 open restricted;
+
+Pluggable database altered.
+
+SQL> alter session set container=pdb1;
+
+Session altered.
+
+SQL> alter pluggable database rename global_name to ORCLPDB;
+
+Pluggable database altered.
+
+SQL> alter pluggable database close immediate;
+
+Pluggable database altered.
+
+SQL> alter pluggable database open;
+
+Pluggable database altered.
+
+SQL>  show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         3 ORCLPDB                        READ WRITE NO
+SQL> select name from v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
++DATA/ORCL/C4CFF5471C5C7324E0530118A8C052A8/DATAFILE/system.272.1075320643
++DATA/ORCL/C4CFF5471C5C7324E0530118A8C052A8/DATAFILE/sysaux.273.1075320643
++DATA/ORCL/C4CFF5471C5C7324E0530118A8C052A8/DATAFILE/undotbs1.271.1075320643
++DATA/ORCL/C4CFF5471C5C7324E0530118A8C052A8/DATAFILE/users.275.1075320679

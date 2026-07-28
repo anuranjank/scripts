@@ -1,0 +1,28 @@
+name: Execute Script on Oracle Server
+
+on:
+  push:
+    branches:
+      - main  # Runs automatically when you push to main branch
+
+jobs:
+  run-remote-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Script on Oracle Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.ORACLE_SERVER_IP }}
+          username: ${{ secrets.ORACLE_SSH_USER }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          port: 22
+          script: |
+            # Clone or fetch latest repo changes on the target server
+            echo "Executing script directly on Oracle Linux Host..."
+            
+            # Example A: Pass script content dynamically over SSH
+            bash -s < ${{ github.workspace }}/check_db.sh
